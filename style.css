@@ -1,0 +1,57 @@
+body {
+    background-color: black;
+}
+
+.game-title {
+    color: white;
+    text-align: center;
+    font-size: 100px;
+}
+
+.choose {
+    text-align: center;
+    color: white;
+    font-size: 40px;
+    background-color: rgb(245, 45, 245);
+}
+
+.choose h3 {
+    padding: 5px;
+}
+
+.turn-button {
+    text-align: center;
+    color: white;
+    font-size: 50px;
+    width: 43%;
+    margin: 0 auto;
+    transform: skewX(-30deg);
+    cursor: pointer;
+    border: 5px solid rgb(163, 157, 123);
+    padding: 0;
+}
+
+.turn-button h3 {
+    transform: skewX(30deg);
+    padding: 0;
+    margin: 15px;
+}
+
+.computer-first {
+    background-color: rgb(146, 255, 73);
+    color: black;
+}
+
+.player-first {
+    background-color: rgb(32, 255, 236);
+    color: black;
+    margin-bottom: 30px;
+}
+
+
+
+
+
+.hide {
+    display: none;
+}
