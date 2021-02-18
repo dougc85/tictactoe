@@ -1,5 +1,6 @@
 body {
     background-color: black;
+    box-sizing: border-box;
 }
 
 .game-title {
@@ -48,9 +49,57 @@ body {
     margin-bottom: 30px;
 }
 
+.game-board {
+    margin: 0 auto;
+    width: 600px;
+    height: 600px;
+    margin-top: 100px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.box {
+    border: 2px dashed white;
+    width: 33%;
+    height: 33%;
+    cursor: pointer;
+    color: white;
+    font-size: 180px;
+    text-align: center;
+}
+
+.zero, .one, .three, .four, .six, .seven {
+    border-right: none;
+}
+
+.zero, .one, .two, .three, .four, .five {
+    border-bottom: none;
+}
+
+.zero, .one, .two {
+    border-top: black;
+}
+
+.two, .five, .eight {
+    border-right: black;
+}
+
+.zero, .three, .six {
+    border-left: black;
+}
+
+.six, .seven, .eight {
+    border-bottom: black;
+}
 
 
 
+
+.button-push {
+    background-color: rgb(255, 197, 73);
+    color: white;
+    border: 5px solid rgb(162, 83, 252);
+}
 
 .hide {
     display: none;
