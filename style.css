@@ -92,8 +92,16 @@ body {
     border-bottom: black;
 }
 
+.end-message {
+    color: white;
+    text-align: center;
+    font-size: 80px;
+}
 
-
+.reset-style {
+    background-color: rgb(225, 240, 21);
+    color: black;
+}
 
 .button-push {
     background-color: rgb(255, 197, 73);

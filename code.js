@@ -3,6 +3,7 @@
 const blank = '';
 let boardArray = [blank, blank, blank, blank, blank, blank, blank, blank, blank];
 
+const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 const playerFactory = (name, piece) => {
     return {name, piece};
@@ -136,7 +137,12 @@ const gameBoard = (() => {
         } else if (two == four && four == six && two !== '') {
             return {win: true, winner: two};
         } else {
-            return {win: false, winner: ""};
+            for (let i = 0; i < boardArray.length; i++) {
+                if (boardArray[i] == '') {
+                    return {win: false, winner: ""};
+                }
+            }
+            return {win: true, winner: "tie"}
         }
     };
 
@@ -180,11 +186,19 @@ const gameControl = (() => {
             turn++;
         }
 
-        const endGame = function(winner) {
-            return;
+        const endGame = async function(winner) {
+
+            await sleep(1700);
+            let message = (winner === "tie") ? 'This was a TIE GAME' :
+                          (winner === 'player') ? 'PLAYER WINS' : 'COMPUTER WINS';
+                        
+            document.querySelector('.end-screen').classList.toggle('hide');
+            document.querySelector('.game-board').classList.toggle('hide');
+            document.querySelector('.end-message').textContent = message;
+           
         }
 
-        function makePlay(e) {
+        async function makePlay(e) {
             let clickedBox = e.target;
             if (clickedBox.classList.contains('box') && clickedBox.classList.contains('empty-square')) {
                 positionNumber = gameBoard.boardPositionArray.indexOf(clickedBox.dataset.id);
@@ -196,14 +210,17 @@ const gameControl = (() => {
                     endGame(winObject.winner);
                 } else {
                     turn++;
+                    await sleep(700);
                     let compMove = cpuMove(cpuPiece, playerPiece, turn)
                     turn++;
                     gameBoard.fill(compMove, cpuPiece);
                     gameBoard.renderBoard();
                     let winObject = gameBoard.checkWin();
                     if (winObject.win) {
+                        let winner = (winObject.winner == 'tie') ? 'tie' :
+                                     (winObject.winner == playerPiece) ? 'player' : 'computer';
                         document.removeEventListener('click', makePlay);
-                        endGame(winObject.winner);
+                        endGame(winner);
                     }
                 }
             }
@@ -300,12 +317,9 @@ const gameControl = (() => {
         }
     }
 
-    const reset = function() {
-        return;
-    }
-
     const playerFirst = document.querySelector('.player-button');
     const cpuFirst = document.querySelector('.cpu-button');
+    const resetButton = document.querySelector('.reset-button');
 
     playerFirst.addEventListener('mousedown', () => {
         playerFirst.classList.toggle('button-push');
@@ -332,6 +346,21 @@ const gameControl = (() => {
         playerX = playerFactory('cpu', 'X');
         playerO = playerFactory('player', 'O');
         play(playerX, playerO);
+    })
+
+    
+
+    resetButton.addEventListener('mousedown', () => {
+        resetButton.classList.toggle('button-push');
+    })
+
+    document.addEventListener('mouseup', () => {
+        resetButton.classList.remove('button-push');
+    })
+
+    resetButton.addEventListener('click', () => {
+        document.querySelector('.title-screen').classList.toggle('hide');
+        document.querySelector('.end-screen').classList.toggle('hide');
     })
 
     return {};
